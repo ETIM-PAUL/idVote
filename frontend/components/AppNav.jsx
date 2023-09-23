@@ -11,7 +11,7 @@ export const AppHeadNav = ({ app }) => {
 
   return (
     <nav
-      className="relative flex w-full items-center justify-between bg-[#CDCFDE] py-2 sm:py-5 sm:px-16 px-4"
+      className="relative flex w-full items-center justify-between nav_col py-2 sm:py-5 sm:px-16 px-4"
       data-te-navbar-ref>
       <div className="flex w-full justify-between items-center">
         <div className="flex">
@@ -27,8 +27,14 @@ export const AppHeadNav = ({ app }) => {
             <div
               className="list-style-none mr-auto flex flex-col pl-0 md:mt-1 md:flex-row text-white"
               data-te-navbar-nav-ref>
+                <span></span>
             </div>
           </div>
+        </div>
+
+        <div className="flex gap-6 text-xl">
+          <span className="hover:cursor-pointer">Register</span>
+          <span className="hover:cursor-pointer">Vote</span>
         </div>
 
         <button
@@ -90,7 +96,7 @@ export const AppHeadNav = ({ app }) => {
                     if (!connected) {
                       return (
                         <div
-                          className="!visible mt-2 hidden bg-[#000] py-3 px-3 rounded-2xl flex-gro basis-[100%] items-center md:mt-0 md:!flex md:basis-auto hover:cursor-pointer"
+                          className="!visible mt-2 hidden bg-[#cdcfde] py-3 px-3 rounded-2xl flex-gro basis-[100%] items-center md:mt-0 md:!flex md:basis-auto hover:cursor-pointer"
                           id="navbarSupportedContent3"
                           onClick={openConnectModal}
                           data-te-collapse-item>
@@ -103,7 +109,7 @@ export const AppHeadNav = ({ app }) => {
                               className="mb-4 pl-2 md:mb-0 md:pl-0 md:pr-1"
                               data-te-nav-item-ref>
                               <span
-                                className="p- mono_font text-white text-xl transition duration-200 hover:ease-in-out motion-reduce:transition-none md:px-2"
+                                className="p- mono_font text-black text-xl transition duration-200 hover:ease-in-out motion-reduce:transition-none md:px-2"
                                 data-te-nav-link-ref> Connect</span>
                             </div>
                           </div>

@@ -77,6 +77,10 @@ input[type=number] {
   background: linear-gradient(0deg, rgba(2, 5, 31, 0.93) 0%, rgba(2, 5, 31, 0.93) 100%), linear-gradient(135deg, #80F2BC 4.17%, #CD31D0 44.27%, #1E30D1 83.33%);
 }
 
+.nav_col {
+  background: var(--blue-90, #02051F);
+}
+
 .hero_bg {
   background: linear-gradient(0deg, rgba(2, 5, 31, 0.93) 0%, rgba(2, 5, 31, 0.93) 100%), linear-gradient(135deg, #80F2BC 4.17%, #CD31D0 44.27%, #1E30D1 83.33%);
 }

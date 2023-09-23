@@ -22,5 +22,8 @@
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2",
     "wagmi": "^1.4.2"
+  },
+  "devDependencies": {
+    "daisyui": "^3.7.7"
   }
 }
