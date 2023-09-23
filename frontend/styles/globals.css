@@ -1,27 +1,119 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.mono {
+  font-family: 'Space Mono', monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.mono {
+  font-family: 'Space Mono', monospace;
 }
 
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Space Mono', monospace;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.glass_bg {
+  background: rgba(2, 5, 31, 0.93);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.geostar_font {
+  font-family: 'Geostar', monospace;
+}
+
+.grotesk_font {
+  font-family: 'Grotesk', monospace;
+}
+
+.mono_font {
+  font-family: 'Space Mono', monospace;
+}
+
+.app_cards_bg {
+  background: linear-gradient(0deg, rgba(2, 5, 31, 0.93) 0%, rgba(2, 5, 31, 0.93) 100%), linear-gradient(135deg, #80F2BC 4.17%, #CD31D0 44.27%, #1E30D1 83.33%);
+}
+
+.app_card_bg {
+  border: 1px solid rgba(3, 7, 46, 0.60);
+  background: var(--blue-70, #03093D);
+  box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.10);
+  backdrop-filter: blur(10px);
+}
+
+.card_border {
+  border-radius: 36px;
+  border: linear-gradient(135deg, rgba(58, 129, 191, 0.08) 0%, rgba(65, 48, 90, 0.03) 100%);
+  backdrop-filter: blur(12px);
+}
+
+.bgCol {
+  background: linear-gradient(0deg, rgba(2, 5, 31, 0.93) 0%, rgba(2, 5, 31, 0.93) 100%), linear-gradient(135deg, #80F2BC 4.17%, #CD31D0 44.27%, #1E30D1 83.33%);
+}
+
+.hero_bg {
+  background: linear-gradient(0deg, rgba(2, 5, 31, 0.93) 0%, rgba(2, 5, 31, 0.93) 100%), linear-gradient(135deg, #80F2BC 4.17%, #CD31D0 44.27%, #1E30D1 83.33%);
+}
+
+.fin_bg {
+  background: var(--gradient-effect, linear-gradient(180deg, #0E0E0E 0%, #56AAFE 20.00%, #56AAFE 40.00%, #56AAFE 60.00%, #56AAFE 80.00%, #00020D 100%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.base_bg {
+  background: linear-gradient(180deg, #B21690 18.75%, #FED956 54.69%, #921085 91.67%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.coin_bg {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), lightgray 50% / contain no-repeat;
+}
+
+.class {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.20) 100%);
+  box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.10);
+  backdrop-filter: blur(10px);
+}
+
+.main_app_bg {
+  background: linear-gradient(0deg, rgba(130, 135, 174, 0.60) 0%, rgba(130, 135, 174, 0.60) 100%), linear-gradient(135deg, #80F2BC 12.24%, #1E30D1 89.76%);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
