@@ -14,6 +14,7 @@ import {
   coinbaseWallet,
   walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
+import GlobalProvider from '../globalContext.jsx';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
@@ -58,7 +59,9 @@ export default function App({ Component, pageProps }: AppProps) {
           accentColorForeground: 'white',
           borderRadius: 'medium',
         })}>
+        <GlobalProvider>
           <Component {...pageProps} />
+        </GlobalProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   )

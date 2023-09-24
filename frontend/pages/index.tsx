@@ -13,21 +13,21 @@ const Home = () => {
         />
         <script
           type="text/javascript"
-          src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js" async 
-          ></script>
+          src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js" async
+        ></script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Geostar&family=Space+Grotesk&family=Space+Mono&display=swap" rel="stylesheet">
 
         </link>
         <link href="/favicon.ico" rel="icon" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Geostar&family=Space+Grotesk&display=swap" rel="stylesheet"></link>
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Geostar&family=Space+Grotesk&family=Space+Mono&display=swap" rel="stylesheet">
 
         </link>
