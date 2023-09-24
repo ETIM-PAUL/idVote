@@ -5,7 +5,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
 import { GlobalContext } from "@/globalContext";
 
-const AppHeadNav = () => {
+const HomeNav = () => {
   const { address, isConnected } = useAccount();
   const {
     state: { createElectionModal },
@@ -219,4 +219,4 @@ const AppHeadNav = () => {
   );
 };
 
-export default AppHeadNav;
+export default HomeNav;

@@ -1,12 +1,18 @@
 import React from "react";
-import { AppHeadNav } from "../components/AppNav";
-import HeroSection from '../components/HeroSection'
+import HomeNav from "../components/HomeNav";
+import HeroSection from "../components/HeroSection";
+import AppCards from "@/components/AppCards";
+import WhyUs from "@/components/WhyUs";
+import Footer from "@/components/Footer";
 
 const HomePage = () => {
   return (
     <div>
-      <AppHeadNav />
+      <HomeNav />
       <HeroSection />
+      <AppCards />
+      <WhyUs />
+      <Footer />
     </div>
   );
 };
