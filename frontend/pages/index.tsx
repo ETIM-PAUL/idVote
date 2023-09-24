@@ -1,6 +1,6 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Head from 'next/head';
-import HomePage from './home.jsx';
+import HomePage from './home';
 
 const Home = () => {
   return (
