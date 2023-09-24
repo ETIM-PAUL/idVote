@@ -1,9 +1,14 @@
 import DashBoardLayout from "@/components/Layouts/DashboardLayout";
 import Image from "next/image";
 import iDReg from "@/assets/login/amico.svg";
-import { useAccount, useContractWrite } from "wagmi";
-import { ChangeEventHandler, useState } from "react";
-
+import { useAccount, useContractWrite, useWaitForTransaction } from "wagmi";
+import { ChangeEventHandler, useMemo, useState } from "react";
+import idms from "@/ABI/idms";
+import MoonLoader from "react-spinners/MoonLoader";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { toast } from "react-toastify";
 
 // string memory _name,
 // uint256 _dateOfBirth,
@@ -12,18 +17,64 @@ import { ChangeEventHandler, useState } from "react";
 
 const IDMS = () => {
   const { address } = useAccount();
-  const [userInput, setUserInput] = useState({
-    name: "",
-    dob: "",
-    nationalID: "",
-    phrase: "",
-  });
-  const inputClass =
-    "w-full p-6 rounded-lg bg-card-blue bg-opacity-50 border border-[#fff4] mt-2";
 
-   // const writer = useContractWrite({
-   //    address: 
-   // })
+  const schema = yup
+    .object({
+      name: yup.string().required().label("Full Name"),
+      dob: yup.string().required().label("Date of Birth"),
+      nationalID: yup
+        .number()
+        .required("National ID not specified")
+        .label("National ID"),
+      phrase: yup.string().required().label("Password"),
+    })
+    .required();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const [passPhrase, setPassPhrase] = useState("");
+  const [parsedDate, setParsedDate] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const createUser = useContractWrite({
+    address: "0xdb6dd400d81f48970c16b6a726439e5c13e59dc9",
+    abi: idms.abi,
+    functionName: "createUser",
+    args: [
+      getValues("name"),
+      getValues("dob"),
+      getValues("nationalID"),
+      passPhrase,
+    ],
+    onError(err) {
+      toast.error(`${err}`);
+      setLoading(false);
+    },
+  });
+
+  const { data, isError, isLoading } = useWaitForTransaction({
+    hash: createUser.data?.hash,
+    onSuccess(data) {
+      toast.success(`Election Added`);
+      reset();
+      setLoading(false);
+    },
+    onError(err) {
+      toast.error(`${err}`);
+      setLoading(false);
+    },
+  });
+
+  const inputClass =
+    "w-full py-2 px-6 rounded-lg bg-card-blue bg-opacity-50 border border-[#fff4] mt-2";
 
   const getLabel = (input: string): string => {
     switch (input) {
@@ -40,66 +91,78 @@ const IDMS = () => {
     }
   };
 
-  const handleInputUpdate: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setUserInput({ ...userInput, [e.target.name]: e.target.value });
-  };
+  const submit = async () => {
+    setLoading(true);
+    let hashPhrase: string;
 
-  const handleSubmit = async () => {
-    let hashPhrase;
     fetch("/api/hash", {
       method: "POST",
-      body: JSON.stringify(userInput.phrase),
+      body: JSON.stringify(getValues("phrase")),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(async (data) => {
         hashPhrase = data.hash;
-
-        const userInfo = {
-          ...userInput,
-          phrase: hashPhrase,
-        };
+        //   setParsedDate(() => parseDate(getValues("dob")));
+        setPassPhrase(() => hashPhrase);
+        createUser.write();
       });
+  };
+
+  const parseDate = (date: string): string => {
+    const _date = new Date(date);
+    console.log(_date);
+    return _date.toString();
   };
 
   return (
     <DashBoardLayout>
-      <div className="flex gap-10 justify-center">
+      <div className="md:px-8 flex gap-10 justify-center items-center flex-col md:flex-row relative lg:px-16 max-w-6xl mx-auto">
         <Image
           src={iDReg}
           alt="Illustration of man with a key in fr"
-          className="w-full sm:w-[40%]"
+          className="w-1/2 xl:w-[40%]"
         />
-        <div className="artboard-demo w-[60%] bg-light-morph text-white p-8">
-          <h2 className="font-mono font-bold text-[40px]">Register Identity</h2>
+
+        <form
+          onSubmit={handleSubmit(submit)}
+          className="artboard-demo w-full md:w-1/2  xl:w-[60%] bg-light-morph text-white p-8"
+        >
+          <h2 className="font-mono font-bold text-xl lg:text-2xl">
+            Register Identity
+          </h2>
           <div className="w-full">
             {[
               ["name", "dob"],
               ["nationalID", "phrase"],
             ].map((row, i) => (
-              <div className="flex gap-8 my-6" key={i}>
-                {row.map((input) => {
-                  const _input = input as
+              <div className="flex md:flex-col lg:flex-row gap-8 my-6" key={i}>
+                {row.map((inp) => {
+                  const _input = inp as
                     | "name"
                     | "dob"
                     | "nationalID"
                     | "phrase";
 
                   return (
-                    <label
-                      htmlFor={input}
-                      className="w-full text-2xl"
-                      key={input}
-                    >
-                      {getLabel(input)}
+                    <label htmlFor={_input} className="w-full" key={_input}>
+                      {getLabel(_input)}
                       <br />
                       <input
-                        type={input == "phrase" ? "password" : "text"}
-                        name={input}
-                        id={input}
-                        className={inputClass}
-                        value={userInput[_input]}
-                        onChange={handleInputUpdate}
+                        type={
+                          _input == "phrase"
+                            ? "password"
+                            : // : _input == "dob"? "date"
+                              "text"
+                        }
+                        id={_input}
+                        className={`${inputClass} ${
+                          errors[_input]?.message && "border-red-400"
+                        }`}
+                        {...register(_input)}
                       />
+                      <p className="text-red-500 text-xs italic pt-1">
+                        {errors[_input]?.message}
+                      </p>
                     </label>
                   );
                 })}
@@ -108,15 +171,20 @@ const IDMS = () => {
           </div>
 
           <button
-            onClick={handleSubmit}
-            className="my-4 btn bg-light px-8 py-4 h-max text-lg text-card-blue hover:text-light w-max"
+            type="submit"
+            className="md:my-4 btn bg-light px-8 py-2 h-max text-lg text-card-blue hover:text-light w-max"
+            disabled={isLoading}
           >
-            Register
+            <MoonLoader size={20} loading={loading} className="it" />
+            <span>{loading ? "Registering" : "Register"}</span>
           </button>
-        </div>
+        </form>
       </div>
     </DashBoardLayout>
   );
 };
 
 export default IDMS;
+// function dispatch(arg0: {type: string;}) {
+//    throw new Error("Function not implemented.");
+// }
