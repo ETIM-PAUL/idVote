@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 // import AppHeadNav  from '../components/AppNav'
 import Image from 'next/image'
 import electionJPG from "../assets/election.jpeg";
-import dynamic from 'next/dynamic';
-const AppNoSSR = dynamic(() => import('@/components/AppNav'), { ssr: false });
+import DashBoardLayout from "@/components/Layouts/DashboardLayout";
 
 const votingSystem = () => {
   const elections = [
@@ -40,19 +39,19 @@ const votingSystem = () => {
   const [openRegisterModal, setOpenRegisterModal] = useState(false)
 
   return (
-    <div className='bgCol min-h-screen'>
-      <AppNoSSR />
-
+    <DashBoardLayout>
       <div className="my-20">
-        <div className='mb-8'>
+        <div className="mb-8">
           <span className="text-3xl text-center w-full block">Elections</span>
         </div>
 
         <div className="py-2 sm:py-5 sm:px-16 px-4">
-          <div className='flex gap-6'>
+          <div className="flex gap-6">
             {elections.map((election) => (
               <div className="card w-96 bg-base-100 shadow-xl image-full">
-                <figure><Image src={electionJPG} className='w-full' alt="Shoes" /></figure>
+                <figure>
+                  <Image src={electionJPG} className="w-full" alt="Shoes" />
+                </figure>
                 <div className="card-body">
                   <h2 className="card-title">{election.name}</h2>
                   <p>{election.description}</p>
@@ -64,7 +63,6 @@ const votingSystem = () => {
               </div>
             ))}
           </div>
-
         </div>
 
         {openRegisterModal &&
@@ -82,8 +80,8 @@ const votingSystem = () => {
           </>
         }
       </div>
-    </div>
-  )
+    </DashBoardLayout>
+  );
 }
 
 export default votingSystem;
