@@ -2,8 +2,7 @@ import React from 'react'
 // import AppHeadNav  from '../components/AppNav'
 import Image from 'next/image'
 import electionJPG from "../assets/election.jpeg";
-import dynamic from 'next/dynamic';
-const AppNoSSR = dynamic(() => import('../components/AppNav'), { ssr: false });
+import DashBoardLayout from "@/components/Layouts/DashboardLayout";
 
 const votingSystem = () => {
   const elections = [
@@ -39,19 +38,19 @@ const votingSystem = () => {
 
 
   return (
-    <div className='bgCol min-h-screen'>
-      <AppNoSSR />
-
+    <DashBoardLayout>
       <div className="my-20">
-        <div className='mb-8'>
+        <div className="mb-8">
           <span className="text-3xl text-center w-full block">Elections</span>
         </div>
 
         <div className="py-2 sm:py-5 sm:px-16 px-4">
-          <div className='flex gap-6'>
+          <div className="flex gap-6">
             {elections.map((election) => (
               <div className="card w-96 bg-base-100 shadow-xl image-full">
-                <figure><Image src={electionJPG} className='w-full' alt="Shoes" /></figure>
+                <figure>
+                  <Image src={electionJPG} className="w-full" alt="Shoes" />
+                </figure>
                 <div className="card-body">
                   <h2 className="card-title">{election.name}</h2>
                   <p>{election.description}</p>
@@ -63,14 +62,15 @@ const votingSystem = () => {
               </div>
             ))}
           </div>
-
         </div>
 
         {/* <button className="btn" onClick={() => document?.getElementById('my_modal_1').showModal()}>open modal</button> */}
         <div id="my_modal_1" className="modal">
           <div className="modal-box">
             <h3 className="font-bold text-lg">Hello!</h3>
-            <p className="py-4">Press ESC key or click the button below to close</p>
+            <p className="py-4">
+              Press ESC key or click the button below to close
+            </p>
             <div className="modal-action">
               <form method="dialog">
                 {/* if there is a button in form, it will close the modal */}
@@ -80,8 +80,8 @@ const votingSystem = () => {
           </div>
         </div>
       </div>
-    </div>
-  )
+    </DashBoardLayout>
+  );
 }
 
 export default votingSystem;

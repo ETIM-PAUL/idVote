@@ -80,7 +80,7 @@ const AppHeadNav = () => {
             </div>
           }
 
-          <div className="flex bg- items-center text-black gap-5 hidden sm:flex">
+          <div className="bg-items-center text-black gap-5 hidden sm:flex">
             <ConnectButton.Custom>
               {({
                 account,

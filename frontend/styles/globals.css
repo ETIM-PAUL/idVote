@@ -75,6 +75,7 @@ input[type=number] {
 
 .bgCol {
   background: linear-gradient(0deg, rgba(2, 5, 31, 0.93) 0%, rgba(2, 5, 31, 0.93) 100%), linear-gradient(135deg, #80F2BC 4.17%, #CD31D0 44.27%, #1E30D1 83.33%);
+  min-height: 100vh;
 }
 
 .nav_col {
