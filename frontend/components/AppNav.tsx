@@ -72,9 +72,9 @@ const AppHeadNav = () => {
                 <div
                   className="mb-4 pl-2 md:mb-0 md:pl-0 md:pr-1"
                   data-te-nav-item-ref>
-                  <span
+                  <button
                     className="p- mono_font text-black text-xl transition duration-200 hover:ease-in-out motion-reduce:transition-none md:px-2"
-                    data-te-nav-link-ref>Create Election</span>
+                    data-te-nav-link-ref>Create Election</button>
                 </div>
               </div>
             </div>

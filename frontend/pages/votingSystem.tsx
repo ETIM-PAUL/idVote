@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import AppHeadNav  from '../components/AppNav'
 import Image from 'next/image'
 import electionJPG from "../assets/election.jpeg";
 import dynamic from 'next/dynamic';
-const AppNoSSR = dynamic(() => import('../components/AppNav'), { ssr: false });
+const AppNoSSR = dynamic(() => import('@/components/AppNav'), { ssr: false });
 
 const votingSystem = () => {
   const elections = [
@@ -37,6 +37,7 @@ const votingSystem = () => {
     }
   ]
 
+  const [openRegisterModal, setOpenRegisterModal] = useState(false)
 
   return (
     <div className='bgCol min-h-screen'>
@@ -56,7 +57,7 @@ const votingSystem = () => {
                   <h2 className="card-title">{election.name}</h2>
                   <p>{election.description}</p>
                   <div className="card-actions flex">
-                    <button className="btn btn-primary">Register</button>
+                    <button className="btn btn-primary" onClick={() => setOpenRegisterModal(true)}>Register</button>
                     <button className="btn btn-primary">Vote</button>
                   </div>
                 </div>
@@ -66,19 +67,20 @@ const votingSystem = () => {
 
         </div>
 
-        {/* <button className="btn" onClick={() => document?.getElementById('my_modal_1').showModal()}>open modal</button> */}
-        <div id="my_modal_1" className="modal">
-          <div className="modal-box">
-            <h3 className="font-bold text-lg">Hello!</h3>
-            <p className="py-4">Press ESC key or click the button below to close</p>
-            <div className="modal-action">
-              <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn">Close</button>
-              </form>
+        {openRegisterModal &&
+          <>
+            <input type="checkbox" checked={true} id="my_modal_6" className="modal-toggle" /><div className="modal">
+              <div className="modal-box">
+                <h3 className="font-bold text-lg">Hello!</h3>
+                <p className="py-4">This will verify your identity on our IDMS!</p>
+                <div className="modal-action flex">
+                  <label htmlFor="my_modal_6" className="btn" onClick={() => setOpenRegisterModal(false)}>Cancel</label>
+                  <label htmlFor="my_modal_6" className="btn">Proceed</label>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </>
+        }
       </div>
     </div>
   )
