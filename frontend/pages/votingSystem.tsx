@@ -90,7 +90,7 @@ const votingSystemApp = () => {
       <div className="py-2 sm:py-5 sm:px-16 px-4">
         <div className="flex flex-wrap gap-6">
           {!!electionData && electionData.map((election, index) => (
-            <ElectionNoSSR election={election} setOpenRegisterModal={setOpenRegisterModal} setVoteModal={setVoteModal} />
+            <ElectionNoSSR key={index} election={election} setOpenRegisterModal={setOpenRegisterModal} setVoteModal={setVoteModal} />
           ))}
         </div>
       </div>

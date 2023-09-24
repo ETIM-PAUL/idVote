@@ -3,19 +3,20 @@ import React from 'react'
 import electionJPG from "../assets/election.jpeg";
 
 interface Election {
+  key: number;
   election: any;
   setOpenRegisterModal: React.Dispatch<React.SetStateAction<boolean>>;
   setVoteModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Election = ({ election, setOpenRegisterModal, setVoteModal }: Election) => {
+const Election = ({ key, election, setOpenRegisterModal, setVoteModal }: Election) => {
 
   const vote = () => {
 
   }
 
   return (
-    <div className="card max-w-sm bg-base-100 flex-1 shadow-xl image-full">
+    <div key={key} className="card max-w-sm bg-base-100 flex-1 shadow-xl image-full">
       <figure>
         <Image src={electionJPG} className="w-full" alt="Election" />
       </figure>
