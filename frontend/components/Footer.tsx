@@ -1,5 +1,7 @@
 import React from "react";
+import Image from "next/image";
 import Social from "./Social";
+import Logo from "../assets/SecureID.png";
 import discord from "../assets/discord.svg";
 import github from "../assets/github.svg";
 import twitter from "../assets/twitter.svg";
@@ -8,9 +10,12 @@ const Footer = () => {
   return (
     <div className="py-8 px-6 sm:px-16 bg-[#02051F]">
       <div>
-        <h2 className="text-[#F5F6FF] text-3xl uppercase geostar_font">
-          IDVOTE
-        </h2>
+        <div className="flex items-center gap-3">
+          <Image src={Logo} style={{ width: "3%" }} alt="logo" />
+          <h2 className="text-[#F5F6FF] text-3xl uppercase geostar_font">
+            SecureID
+          </h2>
+        </div>
         <div className="sm:flex justify-between items-start text-[#C5CBFD] w-full ">
           <div className="w-full sm:w-[50%] pt-5 sm:py-10">
             <span className="grotesk block max-w-[350px]">

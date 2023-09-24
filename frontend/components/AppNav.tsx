@@ -1,5 +1,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
+import Image from "next/image";
+import Logo from "../assets/SecureID.png";
 import { useContext, useState, useEffect } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
@@ -19,11 +21,12 @@ const AppHeadNav = () => {
     >
       <div className="flex w-full justify-between items-center">
         <div className="flex">
+          <Image src={Logo} style={{ width: "15%" }} alt="logo" />
           <Link
             href="/"
             className="text-3xl geostar_font uppercase text-[#fefefe]"
           >
-            idVote
+            SecureID
           </Link>
 
           <div

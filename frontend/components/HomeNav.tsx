@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import Logo from "../assets/SecureID.png";
 
 const HomeNav = () => {
   return (
@@ -7,12 +9,13 @@ const HomeNav = () => {
       data-te-navbar-ref
     >
       <div className="flex w-full justify-between items-center">
-        <div className="flex">
+        <div className="flex items-center gap-3">
+          <Image src={Logo} style={{ width: "15%" }} alt="logo" />
           <Link
             href="/"
             className="text-3xl geostar_font uppercase text-[#fefefe]"
           >
-            idVote
+            SecureID
           </Link>
 
           <div
