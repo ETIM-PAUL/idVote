@@ -4,9 +4,7 @@ import { useContext, useState, useEffect } from "react"
 import { usePathname, useSearchParams, useRouter } from "next/navigation"
 import { useAccount } from "wagmi"
 
-export const AppHeadNav = ({ app }) => {
-  const [currentApp, setCurrentApp] = useState(app)
-  const [detail, setDetail] = useState(false);
+export const AppHeadNav = () => {
   const { address } = useAccount();
 
   return (
