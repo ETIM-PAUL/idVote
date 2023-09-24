@@ -4,11 +4,11 @@ import { ReactNode } from "react";
 const AppNoSSR = dynamic(() => import("@/components/AppNav"), { ssr: false });
 
 export interface IChildren {
-   children: ReactNode;
+  children: ReactNode;
 }
 
 const DashBoardLayout = ({ children }: IChildren) => (
-  <div className="bgCol">
+  <div className="bgCol min-h-screen">
     <AppNoSSR />
     <div>{children}</div>
   </div>

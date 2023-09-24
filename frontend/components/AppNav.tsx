@@ -3,9 +3,11 @@ import Link from "next/link"
 import { useContext, useState, useEffect } from "react"
 import { usePathname, useSearchParams, useRouter } from "next/navigation"
 import { useAccount } from "wagmi"
+import { GlobalContext } from "@/globalContext"
 
 const AppHeadNav = () => {
   const { address, isConnected } = useAccount();
+  const { state: { createElectionModal }, dispatch } = useContext(GlobalContext)
 
   return (
     <nav
@@ -30,11 +32,6 @@ const AppHeadNav = () => {
           </div>
         </div>
 
-        <div className="flex gap-6 text-xl">
-          <span className="hover:cursor-pointer">Register</span>
-          <span className="hover:cursor-pointer">Vote</span>
-        </div>
-
         <button
           className="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 md:hidden"
           type="button"
@@ -51,9 +48,9 @@ const AppHeadNav = () => {
               fill="currentColor"
               className="h-7 w-7">
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-                clip-rule="evenodd" />
+                clipRule="evenodd" />
             </svg>
           </span>
         </button>
@@ -61,6 +58,11 @@ const AppHeadNav = () => {
         <div className="flex gap-4">
           {isConnected &&
             <div
+              onClick={() => {
+                dispatch({
+                  type: "SET_CREATE_ELECTION_MODAL",
+                })
+              }}
               className="!visible mt-2 hidden bg-[#cdcfde] py-3 px-3 rounded-2xl flex-gro basis-[100%] items-center md:mt-0 md:!flex md:basis-auto hover:cursor-pointer"
               id="navbarSupportedContent3"
               data-te-collapse-item>

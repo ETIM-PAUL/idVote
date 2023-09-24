@@ -15,6 +15,8 @@ import {
   walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 import GlobalProvider from '../globalContext.jsx';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
@@ -61,6 +63,7 @@ export default function App({ Component, pageProps }: AppProps) {
         })}>
         <GlobalProvider>
           <Component {...pageProps} />
+          <ToastContainer />
         </GlobalProvider>
       </RainbowKitProvider>
     </WagmiConfig>
