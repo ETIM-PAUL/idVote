@@ -30,8 +30,6 @@ const Footer = () => {
                 <li className="side text-base font-bold tracking-[1.4px] mb-3 sm:mb-5">
                   Register
                 </li>
-                <li className="pb-3">Documentation</li>
-                <li className="">Github</li>
               </ul>
             </div>
             <div className="grid mb-4">
@@ -39,8 +37,6 @@ const Footer = () => {
                 <li className="side text-base font-bold tracking-[1.4px] mb-3 sm:mb-5">
                   Voting
                 </li>
-                <li className="pb-3">Forum</li>
-                <li className="">Snapshot</li>
               </ul>
             </div>
             <div className="grid mb-3">
@@ -48,9 +44,6 @@ const Footer = () => {
                 <li className="side text-base font-bold tracking-[1.4px] mb-3 sm:mb-5">
                   About
                 </li>
-                <li className="pb-3">Aave V2</li>
-                <li className="pb-3">Base Swap</li>
-                <li className="pb-3">Uniswap</li>
               </ul>
             </div>
           </div>
