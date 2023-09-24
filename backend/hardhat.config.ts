@@ -3,19 +3,11 @@ import "@nomicfoundation/hardhat-toolbox";
 
 import "dotenv/config";
 
-const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL;
 
 const BASE_GOERLI_RPC = process.env.BASE_GOERLI_RPC;
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
-const ETH_MAINNET_RPC_URL = process.env.ETH_MAINNET_RPC_URL;
-
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
-const BASE_API_KEY = process.env.BASE_API_KEY;
-
-const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL;
-const apiKey = ETHERSCAN_API_KEY;
 
 const config: HardhatUserConfig = {
   defaultNetwork: "localhost",
@@ -26,31 +18,12 @@ const config: HardhatUserConfig = {
         url: BASE_GOERLI_RPC,
       },
     },
-
-    sepolia: {
-      url: SEPOLIA_RPC_URL,
-      // @ts-ignore
-      accounts: [PRIVATE_KEY],
-      chainId: 11155111,
-    },
-
-    goerli: {
-      url: GOERLI_RPC_URL,
-      // @ts-ignore
-      accounts: [PRIVATE_KEY],
-      chainId: 5,
-    },
-
     base: {
       url: BASE_GOERLI_RPC,
       // @ts-ignore
       accounts: [PRIVATE_KEY],
       chainId: 84531,
-    },
-    mainnet: {
-      url: ETH_MAINNET_RPC_URL,
-      // @ts-ignore
-      accounts: [PRIVATE_KEY],
+      gasPrice: 1000000000,
     },
 
     localhost: {
@@ -60,7 +33,19 @@ const config: HardhatUserConfig = {
   },
   solidity: "0.8.21",
   etherscan: {
-    apiKey: apiKey,
+    apiKey: {
+     "base-goerli": "PLACEHOLDER_STRING"
+    },
+    customChains: [
+      {
+        network: "base-goerli",
+        chainId: 84531,
+        urls: {
+         apiURL: "https://api-goerli.basescan.org/api",
+         browserURL: "https://goerli.basescan.org"
+        }
+      }
+    ]
   },
 };
 

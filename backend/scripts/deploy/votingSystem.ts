@@ -24,7 +24,7 @@ async function main() {
     //wait for 10 block confirmations before verifying the transaction
     // @ts-ignore
     await votingSystemContract.waitForDeployment(10);
-    await verify(votingSystemContract.target, []);
+    await verify(votingSystemContract.target, [IDMS_ADDRESS]);
   }
 }
 
