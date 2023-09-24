@@ -9,13 +9,13 @@ contract VotingSystem {
     mapping(bytes12 => bool) isValidKey;
     mapping(bytes12 _key => mapping(uint _electionId => bool))
         private electionValidVoters;
-
     mapping(uint electionId => mapping(address _candidate => uint)) candidateVotes;
     mapping(bytes12 _key => mapping(uint _electionId => bool)) private hasVoted;
-
     mapping(uint => Election) elections;
 
     uint electionId;
+
+    Election[] public allElections;
 
     enum ElectionStatus {
         nonExistent,
@@ -24,12 +24,19 @@ contract VotingSystem {
         ended
     }
 
+    enum ElectionType {
+        Presidential,
+        State,
+        Local
+    }
+
     struct Election {
         string name;
         string description;
         address admin;
         address[] candidates;
         ElectionStatus status;
+        ElectionType electionType;
         bytes12[] validVoters;
     }
 
@@ -90,12 +97,14 @@ contract VotingSystem {
     function CreateElection(
         string memory _electionName,
         string memory _electionDesc,
-        address[] memory _candidates
+        address[] memory _candidates,
+        ElectionType _electionType
     ) external {
         electionId++;
         Election storage election = elections[electionId];
         election.name = _electionName;
         election.description = _electionDesc;
+        election.electionType = _electionType; // Set ElectionType
         for (uint i = 0; i < _candidates.length; i++) {
             //checks to make sure that none of the addresses
             //is a zero address
@@ -106,6 +115,9 @@ contract VotingSystem {
         election.candidates = _candidates;
         election.status = ElectionStatus.inactive;
         election.admin = msg.sender;
+
+        // Add the new election to the allElections array
+        allElections.push(election);
     }
 
     function startElection(uint _electionId) external {
@@ -147,5 +159,9 @@ contract VotingSystem {
         }
 
         return _electionResults;
+    }
+
+    function getAllElections() external view returns (Election[] memory) {
+        return allElections;
     }
 }

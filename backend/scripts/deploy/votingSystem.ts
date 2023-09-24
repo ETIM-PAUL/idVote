@@ -1,8 +1,11 @@
 import { ethers, network } from "hardhat";
+import { IDMS_ADDRESS } from "../addresses/address";
 const { verify } = require("../../utils/verify");
 
 async function main() {
-  const votingSystemContract = await ethers.deployContract("VotingSystem");
+  const votingSystemContract = await ethers.deployContract("VotingSystem", [
+    IDMS_ADDRESS,
+  ]);
 
   console.log("===========Deploying VotingSystem Contract================");
   await votingSystemContract.waitForDeployment();
