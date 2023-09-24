@@ -73,9 +73,6 @@ const CreateElection = (props: Props) => {
     }
     try {
       const result = cwriteWrite()
-      console.log(result)
-      console.log(candidates)
-
     } catch (error) {
       console.log(error)
     }

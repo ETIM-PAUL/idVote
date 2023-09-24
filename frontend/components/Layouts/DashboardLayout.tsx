@@ -10,7 +10,7 @@ export interface IChildren {
 const DashBoardLayout = ({ children }: IChildren) => (
   <div className="bgCol min-h-screen">
     <AppNoSSR />
-    <div>{children}</div>
+    <div className="py-20 max-w-screen-2xl mx-auto">{children}</div>
   </div>
 );
 

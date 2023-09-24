@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react'
-// import AppHeadNav  from '../components/AppNav'
-import Image from 'next/image'
-import electionJPG from "../assets/election.jpeg";
 import votingSystem from "../ABI/votingABI"
 import DashBoardLayout from "@/components/Layouts/DashboardLayout";
 import { MoonLoader } from 'react-spinners';
-import { useContractRead, useContractWrite, useWaitForTransaction } from 'wagmi';
-import { toast } from 'react-toastify';
+import { Address, useContractRead, useContractWrite, useWaitForTransaction } from 'wagmi';
 import CreateElection from '@/components/Createelection';
+import dynamic from 'next/dynamic';
+
+interface IElection {
+  name: string;
+  description: string;
+  admin: Address;
+  candidates: Address[];
+  status: number;
+  electionType: number;
+}
+
+const ElectionNoSSR = dynamic(() => import('@/components/Election'), { ssr: false })
 
 const votingSystemApp = () => {
   const elections = [
@@ -42,7 +50,9 @@ const votingSystemApp = () => {
   ]
 
   const [openRegisterModal, setOpenRegisterModal] = useState(false)
+  const [openVoteModal, setVoteModal] = useState(false)
   const [registerLoading, setRegisterLoading] = useState(false)
+  const [voteLoading, setVoteLoading] = useState(false)
   const [allElections, setElections] = useState([])
 
   const register = () => {
@@ -53,16 +63,23 @@ const votingSystemApp = () => {
     }
     setRegisterLoading(false)
   }
+  const vote = () => {
+    setVoteLoading(true)
+    try {
+    } catch (error) {
+      console.log(error)
+    }
+    setVoteLoading(false)
+  }
 
-  // const { data, isError, isLoading } = useCon({
-  //   address: '0xA100d72A7F214D669AC3deCEb07E6b35C001fE7F',
-  //   abi: votingSystem.abi,
-  //   functionName: 'CreateElection',
-  // })
 
+  const { data, isError, isLoading } = useContractRead({
+    address: '0xA100d72A7F214D669AC3deCEb07E6b35C001fE7F',
+    abi: votingSystem.abi,
+    functionName: 'getAllElections',
+  })
 
-
-
+  const electionData = data as unknown as IElection[];
 
   return (
     <DashBoardLayout>
@@ -72,20 +89,8 @@ const votingSystemApp = () => {
 
       <div className="py-2 sm:py-5 sm:px-16 px-4">
         <div className="flex flex-wrap gap-6">
-          {elections.map((election, index) => (
-            <div key={index} className="card max-w-sm bg-base-100 flex-1 shadow-xl image-full">
-              <figure>
-                <Image src={electionJPG} className="w-full" alt="Shoes" />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{election.name}</h2>
-                <p>{election.description}</p>
-                <div className="card-actions flex">
-                  <button className="bt rounded-md border-transparent p-2 border text-black border-[#cdcfde] bg-[#cdcfde] hoverBtn hover:text-white" onClick={() => setOpenRegisterModal(true)}>Register</button>
-                  <button className="bt rounded-md border-transparent p-2 border text-black border-[#cdcfde] bg-[#cdcfde] hoverBtn hover:text-white">Vote</button>
-                </div>
-              </div>
-            </div>
+          {!!electionData && electionData.map((election, index) => (
+            <ElectionNoSSR election={election} setOpenRegisterModal={setOpenRegisterModal} setVoteModal={setVoteModal} />
           ))}
         </div>
       </div>
@@ -113,7 +118,33 @@ const votingSystemApp = () => {
                   </div>
 
                 }
-                {/* <label htmlFor="my_modal_6" className="btn">Proceed</label> */}
+              </div>
+            </div>
+          </div>
+        </>
+      }
+
+      {openVoteModal &&
+        <>
+          <input type="checkbox" checked={true} id="my_modal_6" className="modal-toggle" /><div className="modal">
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">Hello!</h3>
+              <p className="py-4">You about to carry out a voting exercise using your hashed and unique identity!</p>
+              <div className="modal-action flex">
+                <button className="btn" disabled={registerLoading} onClick={() => setVoteModal(false)}>Cancel</button>
+                {voteLoading ?
+                  <button className='btn-border bg-[#cdcfde] px-8 rounded w-full flex justify-center items-center w-[220px] mx-auto gap-4'>
+                    <MoonLoader size={20} className='it' />
+                    <span>Voting</span>
+                  </button>
+                  :
+                  <div className='capitalized'>
+                    <button onClick={() => vote()} type="submit" className={"btn bg-[#cdcfde] px-8 rounded w-full"}>
+                      Proceed
+                    </button>
+                  </div>
+
+                }
               </div>
             </div>
           </div>
